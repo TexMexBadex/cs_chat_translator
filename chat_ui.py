@@ -55,10 +55,6 @@ class ChatTranslatorApp:
                                                      font=("Consolas", 10))
         self.chat_display.pack(padx=10, pady=5, fill=tk.BOTH, expand=True)
         
-        # Status label
-        self.status_label = tk.Label(self.root, text="Venter på chatbeskeder...", bd=1, 
-                                    relief=tk.SUNKEN, anchor=tk.W)
-        self.status_label.pack(side=tk.BOTTOM, fill=tk.X)
     
     def update_chat(self):
         """Henter chatbeskeder i en separat tråd og sender dem til UI"""
@@ -117,7 +113,7 @@ class ChatTranslatorApp:
                     self.chat_display.insert(tk.END, f"[{timestamp}] ", "timestamp")
                     self.chat_display.insert(tk.END, f"[{team}] ", team_color)
                     self.chat_display.insert(tk.END, f"{username}: ", "username")
-                    self.chat_display.insert(tk.END, f"{translated}", "message")
+                    self.chat_display.insert(tk.END, f"{translated}\n", "message")
                     
                     # Scroll til bunden
                     self.chat_display.yview(tk.END)
