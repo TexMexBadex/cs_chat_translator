@@ -1,4 +1,3 @@
-# app.py
 import tkinter as tk
 from tkinter import scrolledtext
 import threading
@@ -17,7 +16,7 @@ from Chat.chat_logger import read_new_log_lines, filter_chat_messages, translate
 class ChatTranslatorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("CS2 Chat Translator (v1.0)")
+        self.root.title("CS2 Chat Translator (v1.1)")
         self.root.geometry("600x400")
         self.root.resizable(True, True)
         
@@ -55,6 +54,10 @@ class ChatTranslatorApp:
                                                      font=("Consolas", 10))
         self.chat_display.pack(padx=10, pady=5, fill=tk.BOTH, expand=True)
         
+        # Status label
+        self.status_label = tk.Label(self.root, text="Venter på chatbeskeder...", bd=1, 
+                                    relief=tk.SUNKEN, anchor=tk.W)
+        self.status_label.pack(side=tk.BOTTOM, fill=tk.X)
     
     def update_chat(self):
         """Henter chatbeskeder i en separat tråd og sender dem til UI"""
@@ -118,10 +121,13 @@ class ChatTranslatorApp:
                     # Scroll til bunden
                     self.chat_display.yview(tk.END)
                     
-           
+                elif msg_type == "STATUS":
+                    # Opdater statuslinje
+                    self.status_label.config(text=data)
                     
                 elif msg_type == "ERROR":
                     # Vis fejlbesked
+                    self.status_label.config(text=data, fg="red")
                     self.chat_display.insert(tk.END, f"ERROR: {data}\n", "error")
                     self.chat_display.yview(tk.END)
                 
