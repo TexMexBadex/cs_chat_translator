@@ -118,13 +118,10 @@ class ChatTranslatorApp:
                     # Scroll til bunden
                     self.chat_display.yview(tk.END)
                     
-                elif msg_type == "STATUS":
-                    # Opdater statuslinje
-                    self.status_label.config(text=data)
+           
                     
                 elif msg_type == "ERROR":
                     # Vis fejlbesked
-                    self.status_label.config(text=data, fg="red")
                     self.chat_display.insert(tk.END, f"ERROR: {data}\n", "error")
                     self.chat_display.yview(tk.END)
                 
